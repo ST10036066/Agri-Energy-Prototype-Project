@@ -4,13 +4,15 @@
     ViewBag.Title = "Collaborations";
 }
 
-<h2>Collaborations</h2>
+
+<h2 id="title" style="font-family: 'Roboto', sans-serif; color: #4CAF50;">Collaborations</h2>
+<h3 style="font-family: 'Roboto', sans-serif; color: #FFA500;">Your  Partner in Sustainable Agriculture</h3>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>CollaborationsViewModel</h4>
         <hr />
