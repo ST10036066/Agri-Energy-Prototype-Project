@@ -6,6 +6,10 @@ using System.Web.Mvc;
 
 namespace Agri_Energy_Prototype_Project.Controllers
 {
+    /// <summary>
+    /// All method creations below occured after a view template 
+    /// was chosen and is based on the Educational Resources's model
+    /// </summary>
     public class EducationalResourcesController : Controller
     {
         public ActionResult EducationalResources()

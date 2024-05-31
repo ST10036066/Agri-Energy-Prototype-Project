@@ -6,37 +6,36 @@ using System.Web.Mvc;
 
 namespace Agri_Energy_Prototype_Project.Controllers
 {
-    /// <summary>
-    /// All method creations below occured after a view template 
-    /// was chosen and is based on the Collaboration's model
-    /// </summary>
-    public class CollaborationsController : Controller
+    public class SustainableFarmingHUBController : Controller
     {
-        public CollaborationsController() { }
-
-        public ActionResult Collaborations ()
+//--------------------------------------------------------------------
+        public ActionResult SustainableFarmingHUB()
         {
-            return(View());
+            return View();
         }
-        // GET: Collaborations
+//--------------------------------------------------------------------
+        // GET: SustainableFarmingHUB
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Collaborations/Details/5
+//--------------------------------------------------------------------
+        // GET: SustainableFarmingHUB/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Collaborations/Create
+
+//--------------------------------------------------------------------
+        // GET: SustainableFarmingHUB/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Collaborations/Create
+        // POST: SustainableFarmingHUB/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -52,13 +51,14 @@ namespace Agri_Energy_Prototype_Project.Controllers
             }
         }
 
-        // GET: Collaborations/Edit/5
+//--------------------------------------------------------------------
+        // GET: SustainableFarmingHUB/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Collaborations/Edit/5
+        // POST: SustainableFarmingHUB/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -74,13 +74,15 @@ namespace Agri_Energy_Prototype_Project.Controllers
             }
         }
 
-        // GET: Collaborations/Delete/5
+
+ //--------------------------------------------------------------------
+        // GET: SustainableFarmingHUB/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Collaborations/Delete/5
+        // POST: SustainableFarmingHUB/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

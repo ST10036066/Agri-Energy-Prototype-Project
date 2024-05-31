@@ -10,6 +10,11 @@ using Agri_Energy_Prototype_Project.Models;
 
 namespace Agri_Energy_Prototype_Project.Controllers
 {
+    /// <summary>
+    /// The following lines of code where generated after the Individual
+    /// account authentication was chosen. From line 1 - 340, Visual Studio 
+    /// proved a template. 
+    /// </summary>
     [Authorize]
     public class ManageController : Controller
     {

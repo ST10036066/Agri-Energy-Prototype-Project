@@ -4,6 +4,12 @@ using System.Web.Mvc;
 
 namespace Agri_Energy_Prototype_Project.Models
 {
+    /// <summary>
+    /// The changes that occured in this template code are in the Register method
+    /// because the parameters need to match with the database table, 'Users'colomns. 
+    ///  public IList<SelectListItem> UserTypeOptions has been added for users
+    ///  to be able to pick their role, a Farmer or Employee
+    /// </summary>
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -65,12 +71,16 @@ namespace Agri_Energy_Prototype_Project.Models
 
     public class RegisterViewModel
     {
-
+        /// <summary>
+        /// RegisterViewModel method has parameter that match the table colom headings
+        /// of 'Users' becuase the user needs to register and their data must be saved 
+        /// </summary>
 
         [Required]
         [Display(Name = "Username")]
         public string Username { get; set; }
-        //--------------------------------------------------------
+       
+//------------------------------------------------------------------
 
         [Required]
         

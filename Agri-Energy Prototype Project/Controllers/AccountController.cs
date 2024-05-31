@@ -12,6 +12,10 @@ using Agri_Energy_Prototype_Project.Models;
 
 namespace Agri_Energy_Prototype_Project.Controllers
 {
+    /// <summary>
+    /// This controller's code already existed after
+    /// choosing the aunthentication type(Individual account)
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
