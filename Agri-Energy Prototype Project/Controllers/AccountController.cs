@@ -9,6 +9,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Agri_Energy_Prototype_Project.Models;
+using System.Security.Cryptography;
+using System.Text;
+
+
 
 namespace Agri_Energy_Prototype_Project.Controllers
 {
@@ -74,6 +78,21 @@ namespace Agri_Energy_Prototype_Project.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    string salt = user.Salt;
+                    string hashedPassword = user.PasswordHash;
+                    if (VerifyPassword(model.Password, salt, hashedPassword))
+                    {
+                        // Login successful, proceed with authentication
+                    }
+                    else
+                    {
+                        // Login failed, display error message
+                    }
+                }
+
                 return View(model);
             }
 
@@ -94,6 +113,43 @@ namespace Agri_Energy_Prototype_Project.Controllers
                     return View(model);
             }
         }
+
+        private void HashPassword(string password, out string salt, out string hashedPassword)
+        {
+            salt = GenerateSalt();
+            string passwordWithSalt = password + salt;
+            hashedPassword = HashPasswordWithSHA256(passwordWithSalt);
+
+
+        }
+
+        private string GenerateSalt()
+        {
+            var rng = new RNGCryptoServiceProvider();
+            var saltBytes = new byte[64];
+            rng.GetBytes(saltBytes);
+            return Convert.ToBase64String(saltBytes);
+        }
+
+       
+
+        public string HashPasswordWithSHA256(string password)
+        {
+            SHA256 sha256 = SHA256.Create();
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+            byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+            string hash = Convert.ToBase64String(hashBytes);
+            return hash;
+        }
+
+
+        private bool VerifyPassword(string password, string salt, string hashedPassword)
+        {
+            string passwordWithSalt = password + salt;
+            string hashedEnteredPassword = HashPasswordWithSHA256(passwordWithSalt);
+            return hashedEnteredPassword == hashedPassword;
+        }
+
 
         //
         // GET: /Account/VerifyCode
@@ -162,12 +218,12 @@ namespace Agri_Energy_Prototype_Project.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    string salt, hashedPassword;
+                    HashPassword(model.Password, out salt, out hashedPassword);
+                    user.PasswordHash = hashedPassword;
+                    user.Salt = salt;
+                    //var result = await UserManager.CreateAsync(user);
 
                     return RedirectToAction("Index", "Home");
                 }
