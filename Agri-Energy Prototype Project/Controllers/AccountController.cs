@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using Agri_Energy_Prototype_Project.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.UI;
+using System.Collections.Generic;
 
 
 
@@ -213,7 +215,15 @@ namespace Agri_Energy_Prototype_Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+               
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, FirstName = model.FirstName,LastName = model.LastName, Age = model.Age,UserType = model.SelectedUserType
+                };
+                var userTypeOptions = new SelectList(new List<SelectListItem>
+{
+    new SelectListItem { Text = "Farmer", Value = "Farmer" },
+    new SelectListItem { Text = "Employee", Value = "Employee" }
+}, "Value", "Text");
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -223,8 +233,11 @@ namespace Agri_Energy_Prototype_Project.Controllers
                     HashPassword(model.Password, out salt, out hashedPassword);
                     user.PasswordHash = hashedPassword;
                     user.Salt = salt;
-                    //var result = await UserManager.CreateAsync(user);
 
+                    //var result = await UserManager.CreateAsync(user);
+                    //saving to database(User)
+                    user.UserType = model.UserTypeOptions.Select(x => x.Value).FirstOrDefault();
+                    await UserManager.UpdateAsync(user);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

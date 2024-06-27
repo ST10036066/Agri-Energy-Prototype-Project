@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -10,6 +11,16 @@ namespace Agri_Energy_Prototype_Project.Models
     public class ApplicationUser : IdentityUser
     {
         public string Salt { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+
+
+
+        public string UserType { get; set; }
+        //  = model.FirstName,
+        //  = model.LastName,
+        // Age = model.Age , Email = model.Email,
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

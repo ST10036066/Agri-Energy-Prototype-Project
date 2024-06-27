@@ -79,35 +79,35 @@ namespace Agri_Energy_Prototype_Project.Models
         [Required]
         [Display(Name = "Username")]
         public string Username { get; set; }
-       
-//------------------------------------------------------------------
+
+        //------------------------------------------------------------------
 
         [Required]
-        
+
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         //-----------------------------------------------------------------
 
         [Required]
-        
+
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         //------------------------------------------------------------------------
 
 
         [Required]
-        
+
         [Display(Name = "Age")]
-        [Range(1,120, ErrorMessage ="Age must be between 1 and 120")]
+        [Range(1, 120, ErrorMessage = "Age must be between 1 and 120")]
         public int Age { get; set; }
-//---------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------
 
 
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-//---------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -122,43 +122,47 @@ namespace Agri_Energy_Prototype_Project.Models
         //------------------------------------------------------------------------------------
 
         [Required]
-       
         [Display(Name = "User Type")]
-      //  public string UserType { get; set; }
+        public string SelectedUserType { get; set; }
+       
+
 
         public IList<SelectListItem> UserTypeOptions { get; set; } = new List<SelectListItem>
         {
-            new SelectListItem {Value = "Farmer", Text = "Farmer"},
-            new SelectListItem {Value = "Employee", Text = "Employee"}};
+            new SelectListItem { Text = "Farmer" },
+            new SelectListItem {  Text = "Employee" }
+        };
+
+    }
+
+
+        public class ResetPasswordViewModel
+        {
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            [Display(Name = "Password")]
+            public string Password { get; set; }
+
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm password")]
+            [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
+
+            public string Code { get; set; }
         }
-    
 
-    public class ResetPasswordViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-
-        public string Code { get; set; }
+        public class ForgotPasswordViewModel
+        {
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+        }
     }
 
-    public class ForgotPasswordViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-    }
-}
