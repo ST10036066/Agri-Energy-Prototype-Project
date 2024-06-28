@@ -1,9 +1,12 @@
 ﻿using System.Data.Entity;
+using System.Reflection.Emit;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+//using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 
 namespace Agri_Energy_Prototype_Project.Models
 {
@@ -32,13 +35,33 @@ namespace Agri_Energy_Prototype_Project.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        
-        public ApplicationDbContext()
-            : base("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Aria\\source\\repos\\Agri-Energy Prototype Project\\Agri-Energy Prototype Project\\App_Data\\Agri-EnergyConnectDB.mdf\";Integrated Security=True", throwIfV1Schema: false)
-        {
-        }
+        private static ApplicationDbContext contextInstance;
 
-        public static ApplicationDbContext Create()
+        public ApplicationDbContext() : base("DefaultConnection") { }
+
+        public DbSet<SustainableFarmingHUB> SustainableFarmingHUB { get; set; }
+
+      //  protected override void OnModelCreating(ModelBuilder builder)
+      //  {
+       //     builder.Entity<SustainableFarmingHUB>().HasKey(e => e.ProductId);
+      //  }
+
+
+        // public ApplicationDbContext(IdentityDbContext<ApplicationDbContext> options)
+        //  : base(options)
+        //: base("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Aria\\source\\repos\\Agri-Energy Prototype Project\\Agri-Energy Prototype Project\\App_Data\\Agri-EnergyConnectDB.mdf\";Integrated Security=True", throwIfV1Schema: false)
+        // {
+
+        // }
+
+       // public DbSet<SustainableFarmingHUB> SustainableFarmingHUB { get; set; }
+       // protected override void OnModelCreating(ModelBuilder modelBuilder)
+       // {
+        //    modelBuilder.Entity<SustainableFarmingHUB>().HasKey(e => e.ProductId);
+       // }
+  //  }
+
+    public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }

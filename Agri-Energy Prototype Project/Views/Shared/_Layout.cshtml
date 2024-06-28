@@ -6,23 +6,23 @@
     <title>
         @ViewBag.Title = "Agri-Energy Connect"
     </title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 
-        <style>
-            /* Custom styles for the navigation bar */
-            .navbar-dark {
-                background-color: #4CAF50; /* Green color */
+    <style>
+        /* Custom styles for the navigation bar */
+        .navbar-dark {
+            background-color: #4CAF50; /* Green color */
+        }
+
+            .navbar-dark .navbar-nav > li > a {
+                color: #ffffff; /* White color */
             }
 
-                .navbar-dark .navbar-nav > li > a {
-                    color: #ffffff; /* White color */
+                .navbar-dark .navbar-nav > li > a:hover {
+                    color: #f0f0f0; /* Light gray color on hover */
                 }
-
-                    .navbar-dark .navbar-nav > li > a:hover {
-                        color: #f0f0f0; /* Light gray color on hover */
-                    }
-        </style>
+    </style>
 
 </head>
 <body>
@@ -35,28 +35,36 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Educational Resources", "EducationalResources", "EducationalResources", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Project Collaborations", "Collaborations", "Collaborations", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Sustainable Farming Hub", "SustainableFarmingHUB", "SustainableFarmingHUB", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Green Energy Marketplace", "GreenEnergyMarketplace", "GreenEnergyMarketplace", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+
+                    @Html.ActionLink("Agri-Energy Connect", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Educational Resources", "EducationalResources", "EducationalResources", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Project Collaborations", "Collaborations", "Collaborations", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Sustainable Farming HUB", "SustainableFarmingHUB", "SustainableFarmingHUB", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Green Energy Marketplace", "GreenEnergyMarketplace", "GreenEnergyMarketplace", new { area = "" }, new { @class = "nav-link" })</li>
+                        </ul>
+                        @Html.Partial("_LoginPartial")
+                    </div>
             </div>
-        </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Agri-Energy Connect</p>
+
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

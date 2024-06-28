@@ -1,34 +1,44 @@
-﻿using System;
+﻿using Agri_Energy_Prototype_Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+
+
 
 namespace Agri_Energy_Prototype_Project.Controllers
 {
     public class SustainableFarmingHUBController : Controller
     {
-//--------------------------------------------------------------------
+        private readonly ApplicationDbContext _context;
         public ActionResult SustainableFarmingHUB()
         {
-            return View();
+            SustainableFarmingHUB model = new SustainableFarmingHUB();
+            ViewBag.Products = _context.SustainableFarmingHUB.ToList();
+            return View("ViewProducts", model);
+
+            // model.ViewProducts = _context.SustainableFarmingHUBs.ToList();
+            // or whatever your data source is
+
+            //return View();
         }
-//--------------------------------------------------------------------
+
+      
+
+
+        public SustainableFarmingHUBController()
+        {
+            _context = ApplicationDbContext.Create();
+        }
+
         // GET: SustainableFarmingHUB
         public ActionResult Index()
-        {
+       {
             return View();
         }
 
-//--------------------------------------------------------------------
-        // GET: SustainableFarmingHUB/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-
-//--------------------------------------------------------------------
         // GET: SustainableFarmingHUB/Create
         public ActionResult Create()
         {
@@ -37,65 +47,95 @@ namespace Agri_Energy_Prototype_Project.Controllers
 
         // POST: SustainableFarmingHUB/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(SustainableFarmingHUB model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                var newProduct = new SustainableFarmingHUB
+                {
+                    ProductName = model.ProductName,
+                    ProductionDate = model.ProductionDate,
+                    ProductionDetails = model.ProductionDetails,
+                    ProductUsage = model.ProductUsage,
+                    Owner = model.Owner,
+                    Category = model.Category
+                };
+                _context.SustainableFarmingHUB.Add(newProduct);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(model);
         }
 
-//--------------------------------------------------------------------
+        // GET: SustainableFarmingHUB/Delete/5
+        public ActionResult Delete(int id)
+        {
+            var product = _context.SustainableFarmingHUB.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
+        }
+
+        // POST: SustainableFarmingHUB/Delete/5
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirm(int id)
+        {
+            var product = _context.SustainableFarmingHUB.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            _context.SustainableFarmingHUB.Remove(product);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // GET: SustainableFarmingHUB/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var product = _context.SustainableFarmingHUB.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
         }
 
         // POST: SustainableFarmingHUB/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, SustainableFarmingHUB model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                var product = _context.SustainableFarmingHUB.Find(id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                product.ProductName = model.ProductName;
+                product.ProductionDate = model.ProductionDate;
+                product.ProductionDetails = model.ProductionDetails;
+                product.ProductUsage = model.ProductUsage;
+                product.Owner = model.Owner;
+                product.Category = model.Category;
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(model);
         }
 
 
- //--------------------------------------------------------------------
-        // GET: SustainableFarmingHUB/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult ViewProducts()
         {
-            return View();
+            // Retrieve the saved data from the database or repository
+            var products =_context.SustainableFarmingHUB.ToList(); // Assuming you have a database context or repository
+
+            return View(products);
         }
 
-        // POST: SustainableFarmingHUB/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
+
+
